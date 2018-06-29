@@ -126,6 +126,40 @@ nav h1 a {
   width: 100%;
   background-color: #ccc;
 }
+/* variant
+.screenreader-text {
+  position: absolute;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+}
+.screenreader-text:focus {
+  color: white;
+  background: #bf1722;
+  display: inline-block;
+  height: auto;
+  width: auto;
+  position: static;
+  margin: auto;
+  padding: 0.500em;
+}*/
+
+.screenreader-text {
+  position: absolute;
+  top: -2.500em;
+  left: 0;
+  background: #bf1722;
+  color: white;
+  font-weight: 200;
+  padding: 0.500em;
+  z-index: 100000;
+}
+
+.screenreader-text:focus {
+  top: 0;
+}
+
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;
