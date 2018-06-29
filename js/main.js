@@ -146,6 +146,14 @@ resetRestaurants = (restaurants) => {
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
+  if (restaurants.length === 0) {
+    const resultsAlert = document.createElement("li");
+    resultsAlert.setAttribute("role", "alert");
+    const resultsAlertText = document.createTextNode("Restaurant does not exist.");
+    resultsAlert.appendChild(resultsAlertText);
+    document.getElementById("restaurants-list").appendChild(resultsAlert);
+    //resultsAlert.setAttribute("tabindex", "0");
+  }
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
@@ -157,9 +165,15 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
+  li.setAttribute("aria-label", `${restaurant.name} restaurant presentation card`);
   const image = document.createElement('img');
+  image.setAttribute('alt', `${restaurant.name} restaurant presentation image`);
+  image.setAttribute('aria-label', `${restaurant.name} restaurant`);
+  image.setAttribute("tabindex", "0");
   image.className = 'restaurant-img';
+  imageFocus = function getFocus() {
+    document.querySelector('restaurant-img').focus();
+  }
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
@@ -169,14 +183,19 @@ createRestaurantHTML = (restaurant) => {
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
+  neighborhood.setAttribute('tabindex', '0');
+  neighborhood.setAttribute('aria-label', `neighborhood - ${restaurant.neighborhood}`);
   li.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
+  address.setAttribute('tabindex', '0');
+  address.setAttribute('aria-label', `address - ${restaurant.address}`);
   li.append(address);
 
   const more = document.createElement('a');
-  more.innerHTML = 'View Details';
+  more.setAttribute('aria-label', `view details for ${restaurant.name} restaurant`);
+  more.innerHTML = `View Details`;
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
